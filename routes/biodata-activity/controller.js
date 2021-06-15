@@ -36,6 +36,42 @@ module.exports = {
       return handleError(req, res, objErr);
     }
   },
+  drvListOrder: async (req, res) => {
+    try {
+      let arrAll = [];
+
+      const findAcct = await PersonBio.find()
+        .populate("acctId", "email onsite")
+        .sort({
+          created_at: -1,
+        });
+
+      const chngGen = changeDesc(findAcct);
+
+      res.status(201).json({
+        status: 201,
+        message: `Successfully get biodata`,
+        data: chngGen,
+      });
+    } catch (error) {
+      console.error("Error occured with message :", error);
+
+      objErr.status = 500;
+      objErr.message = error.message;
+      return handleError(req, res, objErr);
+    }
+  },
+};
+
+const changeDesc = (arr) => {
+  for (var i in arr) {
+    if (arr[i].gender == "male") {
+      arr[i].gender = "Laki-laki";
+    } else {
+      arr[i].gender = "Perempuan";
+    }
+  }
+  return arr;
 };
 
 const handleError = (req, res, objErr) => {

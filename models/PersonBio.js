@@ -1,24 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const driver = "driver";
+const genderTyp = {
+  male: "male",
+  female: "female",
+};
 
 const usersAcctSchema = new Schema({
   name: {
     type: String,
     required: true,
   },
-  email: {
+  gender: {
     type: String,
     required: true,
-  },
-  token: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
+    enum: [genderTyp.male, genderTyp.female],
   },
   phoneNumber: {
     type: String,
@@ -30,10 +26,10 @@ const usersAcctSchema = new Schema({
     },
     required: true,
   },
-  role: {
-    type: String,
+  acctId: {
+    type: Schema.Types.ObjectId,
+    ref: "person_accts",
     required: true,
-    default: driver,
   },
   created_at: {
     type: Date,
@@ -41,6 +37,6 @@ const usersAcctSchema = new Schema({
   },
 });
 
-const UsersModel = mongoose.model("drivers_accts", usersAcctSchema);
+const UsersModel = mongoose.model("bio_accts", usersAcctSchema);
 
 module.exports = UsersModel;

@@ -1,9 +1,7 @@
-const UserModel = require("./UsersAccount");
-const DriverModel = require("./DriversAccount");
-const OrderedModel = require("./Ordered");
+const PersonBio = require("./PersonBio");
+const PersonAcct = require("./PersonAcct");
 
 module.exports = {
-  UserModel: UserModel,
-  DriverModel: DriverModel,
-  OrderedModel: OrderedModel,
+  PersonAcct,
+  PersonBio,
 };
